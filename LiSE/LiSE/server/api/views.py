@@ -12,7 +12,7 @@ from .serializers import UserSerializer, GameSerializer
 
 # Create your views here.
 @api_view(["GET", "POST"])
-def game_list(request):
+def game_list(request, format=None):
 	"""List all games, or create a new game"""
 	if request.method == "GET":
 		games = Game.objects.all()
@@ -28,7 +28,7 @@ def game_list(request):
 
 
 @api_view(["GET", "PUT", "DELETE"])
-def game_detail(request, pk):
+def game_detail(request, pk, format=None):
 	try:
 		game = Game.objects.get(pk=pk)
 	except Game.DoesNotExist:
