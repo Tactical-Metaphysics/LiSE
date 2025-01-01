@@ -4,8 +4,8 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
 
 urlpatterns = [
-	path("games/", views.game_list),
-	path("games/<int:pk>/", views.game_detail),
+	path("games/", views.GameList.as_view()),
+	path("games/<int:pk>/", views.GameDetail.as_view()),
 	# path(
 	# 	"api/character",
 	# 	views.CharacterAPIView.as_view(),
