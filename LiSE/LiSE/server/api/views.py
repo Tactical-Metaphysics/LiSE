@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 
-from rest_framework import generics, status
+from rest_framework import generics, status, mixins
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.parsers import JSONParser
@@ -9,8 +9,13 @@ from .serializers import UserSerializer, GameSerializer
 
 
 # Create your views here.
-class GameList(APIView):
+class GameList(
+	mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView
+):
 	"""List all games, or create a new game"""
+
+	queryset = Game.objects.all()
+	serializer_class = GameSerializer
 
 	def get(self, request, format=None):
 		games = Game.objects.all()
