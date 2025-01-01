@@ -31,31 +31,23 @@ class GameList(
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class GameDetail(APIView):
-	def get_object(self, pk):
-		try:
-			return Game.objects.get(pk=pk)
-		except Game.DoesNotExist:
-			return Response(status=status.HTTP_404_NOT_FOUND)
+class GameDetail(
+	mixins.RetrieveModelMixin,
+	mixins.UpdateModelMixin,
+	mixins.DestroyModelMixin,
+	generics.GenericAPIView,
+):
+	queryset = Game.objects.all()
+	serializer_class = GameSerializer
 
 	def get(self, request, pk, format=None):
-		game = self.get_object(pk)
-		serializer = GameSerializer(game)
-		return Response(serializer.data)
+		return self.retrieve(request, pk, format)
 
 	def put(self, request, pk, format=None):
-		game = self.get_object(pk)
-		data = JSONParser().parse(request)
-		serializer = GameSerializer(game, data=data)
-		if serializer.is_valid():
-			serializer.save()
-			return Response(serializer.data)
-		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+		return self.update(request, pk, format)
 
 	def delete(self, request, pk, format=None):
-		game = self.get_object(pk)
-		game.delete()
-		return Response(status=status.HTTP_204_NO_CONTENT)
+		return self.destroy(request, pk, format)
 
 
 class CharacterAPIView(APIView):
