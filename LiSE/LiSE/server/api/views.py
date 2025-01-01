@@ -9,45 +9,16 @@ from .serializers import UserSerializer, GameSerializer
 
 
 # Create your views here.
-class GameList(
-	mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView
-):
+class GameList(generics.ListCreateAPIView):
 	"""List all games, or create a new game"""
 
 	queryset = Game.objects.all()
 	serializer_class = GameSerializer
 
-	def get(self, request, format=None):
-		games = Game.objects.all()
-		serializer = GameSerializer(games, many=True)
-		return Response(serializer.data)
 
-	def post(self, request, format=None):
-		data = JSONParser().parse(request)
-		serializer = GameSerializer(data=data)
-		if serializer.is_valid():
-			serializer.save()
-			return Response(serializer.data, status=status.HTTP_201_CREATED)
-		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class GameDetail(
-	mixins.RetrieveModelMixin,
-	mixins.UpdateModelMixin,
-	mixins.DestroyModelMixin,
-	generics.GenericAPIView,
-):
+class GameDetail(generics.RetrieveUpdateDestroyAPIView):
 	queryset = Game.objects.all()
 	serializer_class = GameSerializer
-
-	def get(self, request, pk, format=None):
-		return self.retrieve(request, pk, format)
-
-	def put(self, request, pk, format=None):
-		return self.update(request, pk, format)
-
-	def delete(self, request, pk, format=None):
-		return self.destroy(request, pk, format)
 
 
 class CharacterAPIView(APIView):
