@@ -40,7 +40,6 @@ INSTALLED_APPS = [
 	"django.contrib.messages",
 	"django.contrib.staticfiles",
 	"rest_framework",
-	"api",
 ]
 
 MIDDLEWARE = [
@@ -53,7 +52,7 @@ MIDDLEWARE = [
 	"django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "server.urls"
+ROOT_URLCONF = "LiSE.server.urls"
 
 TEMPLATES = [
 	{
@@ -78,7 +77,10 @@ WSGI_APPLICATION = "server.wsgi.application"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-	"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "LiSE.db"}
+	"default": {
+		"ENGINE": "django.db.backends.sqlite3",
+		"NAME": "LiSE/LiSE/server/LiSE.db",
+	}
 }
 
 
@@ -127,10 +129,10 @@ REST_FRAMEWORK = {
 	"DEFAULT_RENDERER_CLASSES": [
 		"rest_framework.renderers.JSONRenderer",
 		"rest_framework.renderers.BrowsableAPIRenderer",
-		"server.renderers.LiSEMessagePackRenderer",
+		"LiSE.server.renderers.LiSEMessagePackRenderer",
 	],
 	"DEFAULT_PARSER_CLASSES": [
 		"rest_framework.parsers.JSONParser",
-		"server.parsers.LiSEMessagePackParser",
+		"LiSE.server.parsers.LiSEMessagePackParser",
 	],
 }

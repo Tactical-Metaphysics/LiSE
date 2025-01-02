@@ -15,6 +15,7 @@ class Game(models.Model):
 
 	class Meta:
 		ordering = ["created"]
+		app_label = "LiSE"
 
 	def save(
 		self,
