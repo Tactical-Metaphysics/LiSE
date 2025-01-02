@@ -1,9 +1,7 @@
 from django.contrib.auth.models import User
 
-from rest_framework import generics, status, mixins
-from rest_framework.response import Response
+from rest_framework import generics
 from rest_framework.views import APIView
-from rest_framework.parsers import JSONParser
 from .models import Game
 from .serializers import UserSerializer, GameSerializer
 
