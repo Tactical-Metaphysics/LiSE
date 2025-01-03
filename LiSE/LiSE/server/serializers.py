@@ -30,6 +30,10 @@ class GameSerializer(serializers.Serializer):
 		instance.prefix = prefix
 		instance.title = validated_data.get("title", instance.title)
 
+	class Meta:
+		model = Game
+		fields = ["id", "created", "prefix", "title", "owner"]
+
 
 class UserSerializer(serializers.ModelSerializer):
 	games = serializers.PrimaryKeyRelatedField(
