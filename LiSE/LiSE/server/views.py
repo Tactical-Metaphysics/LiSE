@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 
-from rest_framework import generics
+from rest_framework import generics, permissions
 from rest_framework.views import APIView
 from .models import Game
 from .serializers import UserSerializer, GameSerializer
@@ -12,6 +12,7 @@ class GameList(generics.ListCreateAPIView):
 
 	queryset = Game.objects.all()
 	serializer_class = GameSerializer
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 	def perform_create(self, serializer):
 		serializer.save(owner=self.request.user)
@@ -20,6 +21,7 @@ class GameList(generics.ListCreateAPIView):
 class GameDetail(generics.RetrieveUpdateDestroyAPIView):
 	queryset = Game.objects.all()
 	serializer_class = GameSerializer
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 class CharacterAPIView(APIView):
