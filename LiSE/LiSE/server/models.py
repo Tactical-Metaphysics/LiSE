@@ -17,15 +17,9 @@ class Game(models.Model):
 		ordering = ["created"]
 		app_label = "LiSE"
 
-	def save(
-		self,
-		force_insert=...,
-		force_update=...,
-		using=...,
-		update_fields=...,
-	):
+	def save(self, *args, **kwargs):
 		if not os.path.exists(self.prefix):
 			os.makedirs(self.prefix)
 			# just make sure all the files are there
 			Engine(self.prefix)
-		super().save(force_insert, force_update, using, update_fields)
+		super().save(*args, **kwargs)
